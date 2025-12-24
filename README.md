@@ -44,6 +44,66 @@ Entity Relationships
 - Audit Logs → Products (tracks changes)
 
 
+🪟 Views
+To simplify reporting and analytics, multiple database views were created. These views aggregate and join data across tables, making it easier for Power BI to consume structured datasets without complex queries.
+
+
+- Customer Reports Views
+- vw_customer_invoices: Combines customer details with invoices and invoice line items.
+- vw_customer_activity: Tracks customer purchase frequency and total spend.
+
+
+- Supplier Reports Views
+- vw_supplier_bills: Joins suppliers with bills and bill details for procurement analysis.
+- vw_supplier_performance: Summarizes supplier contributions, discounts, and delivery timelines.
+
+- User Performance Views
+- vw_user_sales: Tracks invoices created per user, revenue contribution, and discounts applied.
+- vw_user_audit: Links users to audit logs for monitoring system activity.
+
+
+- Main Dashboard Views
+- vw_sales_summary: Provides KPIs for revenue, discounts, and product categories.
+- vw_inventory_status: Shows product stock levels, active/inactive status, and supplier linkage.
+
+
+🔄 Triggers
+Triggers were implemented to enforce business rules and maintain data integrity:
+- Audit Logging Triggers
+- Automatically insert records into audit_logs when product quantity or price changes.
+- Stock Management Triggers
+- Update products.CURRENT_STOCK when new invoices or bills are inserted.
+- Prevent negative stock levels by validating before insert/update.
+- User Management Triggers
+- Log user creation and status changes into audit tables.
+- Enforce password update rules (e.g., minimum length, hash storage).
+
+
+
+⚡ Indexes
+Indexes were added to optimize query performance, especially for Power BI dashboards that run complex aggregations:
+
+
+- Primary Indexes
+- customers(CUSTOMER_ID)
+- suppliers(SUPPLIER_ID)
+- products(PRODUCT_ID)
+- users(USER_ID)
+- roles(ROLE_ID)
+
+
+- Foreign Key Indexes
+- invoices(CUSTOMER_ID, USER_ID)
+- invoices_details(INVOICE_ID, PRODUCT_ID)
+- bills(SUPPLIER_ID, USER_ID)
+- bills_details(BILL_ID, PRODUCT_ID)
+
+
+- Performance Indexes
+- On audit_logs(LOG_TIME) for faster chronological queries.
+- On products(CATEGORY_ID, SUPPLIER_ID) for inventory and supplier analysis.
+- On invoices(INVOICE_DATE) and bills(BILL_DATE) for time-based reporting.
+
 📊 Power BI Analytics
 The Power BI layer of this project contains 100+ interactive views and dashboards, designed to provide deep insights into every aspect of the business. These reports are organized into thematic areas for clarity and usability:
 
