@@ -1,4 +1,5 @@
 📊 Oracle + Power BI Analytics Project
+
 🔎 Project Description
 This project is a business management and analytics solution built on Oracle Database for data storage and Power BI for visualization. It is designed to handle core business processes such as customer management, supplier management, product inventory, invoicing, billing, and audit tracking.
 The system provides:
