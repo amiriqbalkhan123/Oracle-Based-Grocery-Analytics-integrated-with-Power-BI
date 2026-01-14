@@ -1,3 +1,5 @@
+Alert: Data Generated for this Project is a sample, small data and the dashboard is tested by real organization data.
+
 📊 Oracle + Power BI Analytics Project
 
 
